@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 
-import { DataEmail, DataEmailFile, Template } from './';
+import { DataEmail, Template } from './';
 import { envs } from '../config/envs';
 
 const transporter = nodemailer.createTransport({
@@ -16,16 +16,20 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-export const sendEmailFile = async ({ title, toEmail: to, subject, filename, path, fromEmail }: DataEmailFile): Promise<boolean> => {
+export const sendEmailFile = async (data: DataEmail): Promise<boolean> => {
 
   try {
     await transporter.sendMail({
-      from: fromEmail,
-      to,
-      subject: subject,
-      html: Template(title, title),
+      from: data.fromEmail,
+      to: data.toEmail,
+      subject: data.subject,
+      html: Template(data.title, data.text),
       attachments: [
-        { filename, path }
+        {
+          filename: data.filename,
+          content: data.buffer,
+          contentType: data.contentType
+        }
       ]
     });
 

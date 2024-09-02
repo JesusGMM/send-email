@@ -8,9 +8,7 @@ export interface DataEmail {
   subject: string;
   text: string;
   fromEmail: string;
-}
-
-export interface DataEmailFile extends DataEmail {
-  filename: string;
-  path: string;
+  filename?: string;
+  buffer?: Buffer;
+  contentType?: string;
 }

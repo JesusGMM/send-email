@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { envs } from '../config/envs';
+import { envs } from '../config/';
 
 export const sendEmailSchema = z.object({
   body: z.object({
